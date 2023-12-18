@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Hi</h1>
+    <input type="text" id="player-name" placeholder="Введите ваше имя..." oninput="toggleButtonState()">
+    <button id="startbutton" disabled>start game</button>
+    <p id="game-status" style="color: red;"></p>
+
+    <script>
+        function toggleButtonState() {
+            var playerName = document.getElementById('player-name').value;
+            var startButton = document.getElementById('startbutton');
+            startButton.disabled = playerName.trim() === '';
+        }
+
+        function startGame() {
+            var playerName = document.getElementById('player-name').value;
+            window.location.href = '/game?name=' + playerName;
+        }
+
+        $(function () {
+            $('#player-name').focus();
+        });
+
+        $(function () {
+            toggleButtonState();
+
+            $('#player-name').on('input', toggleButtonState);
+            $('#startbutton').on('click', function () {
+                var playerName = document.getElementById('player-name').value;
+                // Отправляем запрос на сервер для проверки статуса игры
+                $.get('/checkGameStatus?name=' + playerName, function (response) {
+                    if (response.gameStarted) {
+                        // Игра уже началась, блокируем кнопку
+                        $('#game-status').text('Игра уже началась');
+                    } else {
+                        // Игра еще не началась, переходим на страницу игры
+                        startGame();
+                    }
+                });
+            });
+            
+        });
+    </script>
+</body>
+
+</html>

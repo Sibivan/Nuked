@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplayer</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Стиль для скрытия ячейки */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-container">
+        <h3>Сообщения</h3>
+        <div id="all_mess"></div>
+        <form id="messForm">
+            <select id="recipient-dropdown">
+                <option value="all">Всем</option>
+            </select>
+            <textarea type="text" id="message" placeholder="Введите ваше сообщение..."></textarea>
+            <button type="submit" id="send-button">Отправить</button>
+        </form>
+    </div>
+    <div id="game-container">
+        <button id="start-game-button">Начать игру</button>
+        <div id="timer-container">
+            <p id="timer">Таймер: <span id="timer-value">5</span> мин</p>
+        </div>
+        <div id="options-container" style="display: none;">
+            <label><input type="checkbox" name="option" value="shield">Получить щит</label>
+            <label><input type="checkbox" name="option" value="bomb">Получить бомбу</label>
+            <label><input type="checkbox" name="option" value="reform">Сделать реформу</label>
+            
+        </div>
+        <div id="stats" style="display: none;">
+            <p id="bomb-stats">У вас сейчас бомб: 0</p>
+            <p id="shield-stats">У вас сейчас щитов: 0</p>
+            <p id="reform-stats">Вы сделали реформ: 0</p>
+        </div>
+    </div>
+    <table id="playersTable">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Игрок</th>
+                <th id="use-bomb-checkbox" class="hidden">Бомба</th>
+                <th class="hidden">idsocket</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Строки таблицы будут добавляться здесь -->
+        </tbody>
+    </table>
+
+    <script>
+    $(function () {
+    var playerName = new URLSearchParams(window.location.search).get('name');
+    var socket = io.connect({ query: { playerName: playerName } });
+    var $all_messages = $("#all_mess");
+    var $textarea = $("#message");
+    var $form = $("#messForm");
+
+    socket.on('show chat', function(data) {
+        // Проверяем, существует ли элемент с указанным id, если нет - создаем
+        if (!document.getElementById(data.chatDivId)) {
+            $('#chat-container').append(data.chatDiv);
+        }
+    });
+     socket.on('update playerslist', function (playerslist) {
+       var dropdown = $("#recipient-dropdown");
+            dropdown.empty();
+            dropdown.append('<option value="all">Всем</option>');
+            playerslist.forEach(function (player) {
+                // Исключаем свое имя из списка
+                if (player.name !== playerName) {
+                    dropdown.append('<option value="' + player.idsocket + '">' + player.name + '</option>');
+                }
+            });
+
+            // Устанавливаем атрибут multiple для множественного выбора
+            dropdown.attr('multiple', 'multiple');
+                // Очищаем содержимое tbody перед добавлением новых строк
+                $('#playersTable tbody').empty();
+
+                // Форматирование данных playerslist для добавления в таблицу
+                playerslist.forEach(function (player, index) {
+                    // Создаем новую строку таблицы
+                    var newRow = $('<tr>');
+
+                    // Добавляем ячейку с номером
+                    var numberCell = $('<td>').text(index + 1);
+                    newRow.append(numberCell);
+
+                    // Добавляем ячейку с данными игрока
+                    var playerCell = $('<td>').text(player.name);
+                    newRow.append(playerCell);
+                    if (player.idsocket !== socket.id) {
+                    var useBombCell = $('<td>').html('<label for="use-bomb-checkbox"><input type="checkbox">Использовать бомбу</label>');
+                    useBombCell.addClass('hidden'); // Добавляем класс для скрытия
+                    newRow.append(useBombCell);
+                } else{
+                    var useBombCell = $('<td>').text('');
+                    useBombCell.addClass('hidden'); // Добавляем класс для скрытия
+                    newRow.append(useBombCell);
+                }
+                    // Добавляем скрытую ячейку с idsocket
+                    var idsocketCell = $('<td>').text(player.idsocket);
+                    idsocketCell.addClass('hidden'); // Добавляем класс для скрытия
+                    newRow.append(idsocketCell);
+
+                    // Добавляем строку в таблицу
+                    $('#playersTable tbody').append(newRow);
+                });
+            });
+     
+     function observeAllMessChanges() {
+        var allMessContainer = document.getElementById('all_mess');
+
+        // Создаем экземпляр MutationObserver с функцией обратного вызова
+        var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    // Обнаружен новый элемент, выполняем необходимые действия
+                    var newElement = mutation.addedNodes[0];
+                    
+                    // Проверяем, является ли новый элемент div
+                    if (newElement.tagName.toLowerCase() === 'div') {
+                        // Получаем текущее время для использования в качестве ключа
+                        var currentTime = new Date().getTime().toString();
+                        
+                        // Сохраняем значение в localStorage
+                        localStorage.setItem(currentTime, newElement.outerHTML);
+                    }
+                }
+            });
+        });
+
+        // Настройка конфигурации и начало наблюдения за изменениями
+        var config = { childList: true };
+        observer.observe(allMessContainer, config);
+    }
+    function addMessagesFromLocalStorage() {
+        var allMessContainer = document.getElementById('all_mess');
+
+        // Получаем все ключи из localStorage и сортируем их по возрастанию
+        var keys = Object.keys(localStorage).sort();
+
+        // Проходим по отсортированным ключам и добавляем соответствующие значения в #all_mess
+        keys.forEach(function (key) {
+            var value = localStorage.getItem(key);
+
+            // Создаем временный div элемент для парсинга
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = value;
+
+            // Добавляем в #all_mess
+            allMessContainer.appendChild(tempDiv.firstChild);
+            setTimeout(function () {
+                localStorage.removeItem(key);
+            }, 30000);
+        });
+    }
+
+    // Добавляем записи из localStorage при загрузке страницы
+    addMessagesFromLocalStorage();
+
+
+    // Запускаем функцию отслеживания изменений при загрузке страницы
+    observeAllMessChanges();
+
+    // Replace $form.submit with click event on the send button
+      $("#send-button").click(function (event) {
+                event.preventDefault();
+                sendMessage();
+            });
+            // Обработка события нажатия Enter в поле ввода
+            $('#message').keypress(function (e) {
+                if (e.which === 13) { // Код клавиши Enter
+                    sendMessage();
+                }
+            });
+
+            // Добавленная функция для отправки сообщения
+            function sendMessage() {
+            var message = $("#message").val();
+            var recipients = $("#recipient-dropdown").val() || []; // Получаем массив idsocket-ов получателей сообщения
+            socket.emit('send mess', { mess: message, name: playerName, recipients: recipients });
+            $("#message").val('');
+        }
+            $("#message").focus();
+
+    // Event for adding a message to #all_mess when receiving a new message from the server
+    socket.on('add mess', function (data) {
+            $all_messages.append(`<div>${data.mess}</div>`);
+        });
+
+    // Hide name input and start button
+    $('#chat-container').prepend('<p><b>' + playerName + '</b>, добро пожаловать в чат!</p>');
+    var timerInterval;
+            var timerValue = 420;
+            var gameStarted = false; // Переменная для отслеживания состояния игры
+
+            $('#start-game-button').click(function () {
+                // Проверка на то, что игра еще не началась
+                if (!gameStarted) {
+                    // Отправляем событие начала игры всем клиентам
+                    socket.emit('start game');
+                }
+            });
+
+            socket.on('game started', function () {
+            // Блокируем кнопку "Начать игру" для всех игроков
+            $('#start-game-button').prop('disabled', true);
+            gameStarted = true;
+
+            // Показываем контейнер с чекбоксами
+            $('#options-container').show();
+            $('#stats').show();
+
+            // Запускаем таймер
+            startTimer();
+        });
+
+            socket.on('game timer finished', function () {
+            
+            gameStarted = false;
+
+            // Добавляем действие, которое происходит после завершения таймера
+            console.log("Событие: Игра завершена!");
+            console.log("IDsocket игрока:", socket.id);
+            console.log(playerName);
+
+            // Собираем данные об игроках и выбранных чекбоксах
+            var selectedOptions = [];
+            $('input[type="checkbox"]:checked').each(function () {
+                var playerId = socket.id;
+                var optionValue = $(this).val();
+                selectedOptions.push({ playerId: playerId, option: optionValue });
+            });
+            var idsocketValue = '';
+            var playerId = socket.id;
+            $('#playersTable tbody tr').each(function() {
+             // Получаем idsocket игрока
+
+            var selectedCheckbox = $('#playersTable tbody input[type="checkbox"]:checked');
+            // Проверка, был ли выбран хотя бы один чекбокс
+            if (selectedCheckbox.length > 0) {
+                // Получение ближайшей ячейки с idsocket для выбранного чекбокса
+                idsocketValue = selectedCheckbox.closest('tr').find('.hidden').text();
+                idsocketValue = idsocketValue.replace(/Использовать бомбу/g, '');
+                // Теперь у вас есть значение idsocket для выбранного чекбокса
+                console.log("Выбран чекбокс для игрока с idsocket: " + idsocketValue);
+                } 
+            });
+            if (idsocketValue.length === 20) {
+            selectedOptions.push({ playerId: playerId, option: idsocketValue });
+        }
+            if (selectedOptions.length === 0) {
+                selectedOptions.push({ playerId: playerId, option: 'check' });
+            }
+            console.log(selectedOptions);
+            // Отправляем данные на сервер
+            socket.emit('update player options', selectedOptions);
+        });
+
+            // Событие для обновления статистики игрока
+            socket.on('update player stats', function (stats) {
+                $(document).ready(function () {
+                // Обновляем надписи на странице согласно полученным данным
+                $('#bomb-stats').text("У вас сейчас бомб: " + stats.bombnum);
+                $('#shield-stats').text("У вас сейчас щитов: " + stats.shieldnum);
+                $('#reform-stats').text("Вы сделали реформ: " + stats.refnum);
+                if (stats.bombnum > 0) {
+                    $('#use-bomb-checkbox').removeClass('hidden');
+                    $('#playersTable td:nth-child(3)').show(); // Показываем третий столбец
+                } else {
+                    $('#use-bomb-checkbox').addClass('hidden');
+                    $('#playersTable td:nth-child(3) input[type="checkbox"]').prop('checked', false); // Снимаем выделение с чекбоксов
+                    $('#playersTable td:nth-child(3)').hide(); // Скрываем третий столбец
+                }
+                if (stats.shieldnum < 0) {
+                    console.log(socket.id);
+                    socket.emit('remove player', { idsocket: socket.id });
+                    // Ваш код для всплывающего окна "Вас взорвали" и блокировки страницы
+                    alert("Вас взорвали!"); // Пример всплывающего окна, замените на ваш код
+
+                    // Блокировка страницы
+                    // Этот код блокирует весь документ с помощью прозрачного DIV
+                    var overlay = $('<div id="overlay"></div>');
+                    overlay.css({
+                        'position': 'fixed',
+                        'top': 0,
+                        'left': 0,
+                        'width': '100%',
+                        'height': '100%',
+                        'background': 'rgba(0, 0, 0, 0.5)',
+                        'z-index': 999
+                    });
+                    $('body').append(overlay);
+
+                    // Отправка запроса на сервер для удаления игрока
+                    
+                }
+                if (stats.refnum === 3) {
+                    // Emit на сервер для остановки таймера
+                    socket.emit('stop game timer', { idsocket: socket.id });
+                    alert("Вы победили!");
+                }
+
+            });
+
+            // Ваш текущий код
+        });
+
+            socket.on('remove player', function(data) {
+
+                var idsocketToRemove = data.idsocket;
+                removePlayerRow(idsocketToRemove);
+            });
+            socket.on('player win', function(data) {
+                finishTimer()
+                console.log(data, data.name)
+                var winner= data.name;
+                if (socket.id !== data.id) {
+                alert(`Победил игрок ${winner}`);
+            }
+            });
+            function removePlayerRow(idsocketToRemove) {
+                console.log('remove', idsocketToRemove);
+                $('#playersTable tbody tr:has(td.hidden:contains("' + idsocketToRemove + '"))').remove();
+            }
+            // Функция для запуска таймера
+            function startTimer() {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(function () {
+                    var minutes = Math.floor(timerValue / 60);
+                    var seconds = timerValue % 60;
+
+                    // Форматирование таймера в формат "минуты:секунды"
+                    var formattedTimer = pad(minutes) + ':' + pad(seconds);
+                    $('#timer-value').text(formattedTimer);
+
+                    timerValue--;
+
+                    if (timerValue < 0) {
+                        // Сбрасываем таймер на 5 минут при достижении 0
+                        timerValue = 420;
+                    }
+                }, 1000);
+            }
+
+            // Функция для добавления ведущего нуля, если число меньше 10
+            function pad(number) {
+                return number < 10 ? '0' + number : number;
+            }
+            function finishTimer() {
+                clearInterval(timerInterval);
+            }
+
+            $('input[type="checkbox"]').change(function () {
+                if ($(this).is(':checked')) {
+                    // Если выбран чекбокс, снимаем выбор со всех остальных
+                    $('input[type="checkbox"]').not(this).prop('checked', false);
+                }
+            });
+
+            // Добавляем аналогичный обработчик события для чекбоксов в таблице
+            $('#playersTable tbody').on('change', 'input[type="checkbox"]', function () {
+                if ($(this).is(':checked')) {
+                    // Если выбран чекбокс в таблице, снимаем выбор со всех остальных чекбоксов в таблице
+                    $('#playersTable tbody input[type="checkbox"]').not(this).prop('checked', false);
+                }
+
+                // Снимаем выбор со всех чекбоксов вне таблицы
+                $('input[type="checkbox"]').not('#playersTable tbody input[type="checkbox"]').prop('checked', false);
+            });
+    
+}); 
+  
+    </script>
+    
+</body>
+
+</html>
