@@ -5,10 +5,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Multiplayer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Multiplayer - NUKED</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-     <style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/room.css">
+    <!--<style>
         table {
             width: 100%;
             border-collapse: collapse;
@@ -28,10 +32,84 @@
         .hidden {
             display: none;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
+
+    <header class="header">
+        <div class="col-md-12">
+            <div class="nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 nav__a">
+                            <a href="" class="logo"><img src="img/logo_small.svg" alt="Gravity"></a>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="nav__orders-button">
+                                <img src="img/orders_icon.svg" alt="" class="nav__orders-button__icon">
+                            </button>
+                        </div>
+                        <div class="col-md-1">
+                            <img src="img/fraction_icon.png" alt="" class="nav__fraction-icon">
+                        </div>
+                        <div class="col-md-1 wrapper-center">
+                            <div class="nav__resource">
+                                <div class="col-md-8">
+                                    <img src="img/bombs_icon.svg" alt="" class="nav__resource__icon bombs">
+                                </div>
+                                <div class="col-md-4 wrapper-end">
+                                    <h2 class="nav__resource__count">
+                                        3
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 wrapper-center">
+                            <div class="nav__resource">
+                                <div class="col-md-8">
+                                    <img src="img/shields_icon.svg" alt="" class="nav__resource__icon">
+                                </div>
+                                <div class="col-md-4 wrapper-end">
+                                    <h2 class="nav__resource__count">
+                                        2
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 wrapper-center">
+                            <div class="nav__resource">
+                                <div class="col-md-8">
+                                    <img src="img/reforms_icon.svg" alt="" class="nav__resource__icon">
+                                </div>
+                                <div class="col-md-4 wrapper-end">
+                                    <h2 class="nav__resource__count">
+                                        0
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 wrapper-center" id="timer-container">
+                            <h3 id="timer">
+                                <span id="timer-value">07:00</span>
+                            </h3>
+                        </div>
+                        <div class="col-md-2 wrapper-center">
+                            <h4 class="nav__rules">
+                                Правила
+                            </h4>
+                        </div>
+                        <div class="col-md-1 nav__a a_exit">
+                            <button href="" id="start-game-button">
+                                <img src="img/play_button.svg" alt="Play Gravity" class="img_exit">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div id="chat-container">
         <h3>Сообщения</h3>
         <div id="all_mess"></div>
@@ -44,10 +122,7 @@
         </form>
     </div>
     <div id="game-container">
-        <button id="start-game-button">Начать игру</button>
-        <div id="timer-container">
-            <p id="timer">Таймер: <span id="timer-value">5</span> мин</p>
-        </div>
+        
         <div id="options-container" style="display: none;">
             <label><input type="checkbox" name="option" value="shield">Получить щит</label>
             <label><input type="checkbox" name="option" value="bomb">Получить бомбу</label>
@@ -60,7 +135,7 @@
             <p id="reform-stats">Вы сделали реформ: 0</p>
         </div>
     </div>
-    <table id="playersTable">
+    <table id="playersTable" style="display: none;">
         <thead>
             <tr>
                 <th>Номер</th>
@@ -73,6 +148,28 @@
             <!-- Строки таблицы будут добавляться здесь -->
         </tbody>
     </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
     $(function () {

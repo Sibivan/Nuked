@@ -1,0 +1,35 @@
+.rools-block {
+	margin-top: 70px;
+}
+
+.rools-block h1 {
+	margin-bottom: 40px;
+}
+
+.rools-block h2 {
+	margin-block: 30px;
+}
+
+.rools-block a {
+	display: block;
+	margin-bottom: 50px;
+	transition-duration: 0.3s;
+}
+
+.rools-block a:hover {
+	color: #FAFF00;
+	font-weight: 700;
+}
+
+.rools-block p {
+	font-size: 24px;
+}
+
+.footer {
+	margin-top: 100px;
+}
+
+.rools-block__nav {
+	position: fixed;
+	margin-left: 20px;
+}

@@ -1,0 +1,56 @@
+.wrapper-center {
+	margin-block: auto;
+}
+
+.nav {
+	padding: 0;
+}
+
+.nav .container {
+	background-color: #3D3D3D;
+	border-radius: 0px 0px 40px 40px;
+	padding-block: 10px;
+}
+
+.nav__orders-button {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	box-shadow: 0 3px 0 #FBB400;
+}
+
+.nav__orders-button:active {
+	transform: translateY(3px);
+}
+
+.nav__resource {
+	display: flex;
+}
+
+.bombs {
+	transform: rotate(45deg);
+}
+
+.nav__resource__count {
+	text-align: right;
+}
+
+#start-game-button {
+	display: block;
+	background: none;
+	border-style: none;
+	border-radius: none;
+	box-shadow: none;
+}
+
+button:active {
+	transform: none;
+	box-shadow: none;
+}
+
+
+.chat-section {
+	width: 100%;
+	height: 820px;
+	background-color: #3D3D3D;
+}
