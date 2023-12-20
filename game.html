@@ -53,42 +53,48 @@
                         <div class="col-md-1">
                             <img src="img/fraction_icon.png" alt="" class="nav__fraction-icon">
                         </div>
+
                         <div class="col-md-1 wrapper-center">
                             <div class="nav__resource">
                                 <div class="col-md-8">
                                     <img src="img/bombs_icon.svg" alt="" class="nav__resource__icon bombs">
                                 </div>
                                 <div class="col-md-4 wrapper-end">
-                                    <h2 class="nav__resource__count">
-                                        3
+                                    <h2 class="nav__resource__count" id="bomb-stats">
+                                        0
                                     </h2>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-1 wrapper-center">
                             <div class="nav__resource">
                                 <div class="col-md-8">
                                     <img src="img/shields_icon.svg" alt="" class="nav__resource__icon">
                                 </div>
                                 <div class="col-md-4 wrapper-end">
-                                    <h2 class="nav__resource__count">
-                                        2
+                                    <h2 class="nav__resource__count" id="shield-stats">
+                                        0
                                     </h2>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-1 wrapper-center">
                             <div class="nav__resource">
                                 <div class="col-md-8">
                                     <img src="img/reforms_icon.svg" alt="" class="nav__resource__icon">
                                 </div>
                                 <div class="col-md-4 wrapper-end">
-                                    <h2 class="nav__resource__count">
+                                    <h2 class="nav__resource__count" id="reform-stats">
                                         0
                                     </h2>
                                 </div>
                             </div>
                         </div>
+                        
+
+
                         <div class="col-md-1 wrapper-center" id="timer-container">
                             <h3 id="timer">
                                 <span id="timer-value">07:00</span>
@@ -110,6 +116,71 @@
         </div>
     </header>
 
+
+
+    <section class="chat">
+        <div class="container">
+            <div class="row">
+                <div class="offset-md-1 col-md-10">
+                    <div class="chat-container">
+                        
+                        <div class="chat-header">
+                            <img src="img/player_icon.svg" alt="Players Gravity">
+                            <h1 class="chat-header-players">ИГРОКИ</h1>
+                            <img src="img/chat_icon.svg" alt="Chat Gravity">
+                            <h1>ЧАТ</h1>
+                        </div>
+
+                        <div class="chat-main">
+                            <div class="offset-md-1 col-md-3">
+                                <select id="recipient-dropdown">
+                                    <option value="all">Всем</option>
+                                    <option value="all">Иран</option>
+                                    <option value="all">Ирак</option>
+                                    <option value="all">Ливия</option>
+                                </select>
+                            </div>
+                            <div class="offset-md-5 col-md-7">
+                                <div class="chat-messages" id="all_mess"></div>
+
+                                <div class="message-box">
+                                    <input type="text" id="message" class="chat-messages-input" placeholder="Введите ваше сообщение..."></input>
+                                    <button type="submit" id="send-button">
+                                        <img src="img/send_message_button.svg" alt="Send Message Gravity" class="img_send_message">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div id="chat-container">
         <h3>Сообщения</h3>
         <div id="all_mess"></div>
@@ -121,6 +192,7 @@
             <button type="submit" id="send-button">Отправить</button>
         </form>
     </div>
+
     <div id="game-container">
         
         <div id="options-container" style="display: none;">
