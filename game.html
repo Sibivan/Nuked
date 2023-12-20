@@ -133,14 +133,14 @@
 
                         <div class="chat-main">
                             <div class="offset-md-1 col-md-3">
-                                <select id="recipient-dropdown">
+                                <select id="recipient-dropdown" size="17" multiple>
                                     <option value="all">Всем</option>
-                                    <option value="all">Иран</option>
+                                    <option value="Iran">Иран</option>
                                     <option value="all">Ирак</option>
                                     <option value="all">Ливия</option>
                                 </select>
                             </div>
-                            <div class="offset-md-5 col-md-7">
+                            <div class="offset-md-1 col-md-8">
                                 <div class="chat-messages" id="all_mess"></div>
 
                                 <div class="message-box">
@@ -154,33 +154,45 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div> 
     </section>
 
 
 
+    <section class="info">
+        <div class="container">
+            <div class="row">
+                <div class="offset-md-3 col-md-6">
+                    <table id="playersTable">
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Игрок</th>
+                                <th id="use-bomb-checkbox" class="hidden">Бомба</th>
+                                <th class="hidden">idsocket</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Иран</td>
+                                <td id="use-bomb-checkbox" class="hidden">lorem</td>
+                                <td class="hidden">idsocket</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Ирак</td>
+                                <td id="use-bomb-checkbox" class="hidden">lorem</td>
+                                <td class="hidden">idsocket</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--
     <div id="chat-container">
         <h3>Сообщения</h3>
         <div id="all_mess"></div>
@@ -217,29 +229,9 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Строки таблицы будут добавляться здесь -->
         </tbody>
     </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</!-->
 
 
 
@@ -458,9 +450,9 @@
             socket.on('update player stats', function (stats) {
                 $(document).ready(function () {
                 // Обновляем надписи на странице согласно полученным данным
-                $('#bomb-stats').text("У вас сейчас бомб: " + stats.bombnum);
-                $('#shield-stats').text("У вас сейчас щитов: " + stats.shieldnum);
-                $('#reform-stats').text("Вы сделали реформ: " + stats.refnum);
+                $('#bomb-stats').text(stats.bombnum);
+                $('#shield-stats').text(stats.shieldnum);
+                $('#reform-stats').text(stats.refnum);
                 if (stats.bombnum > 0) {
                     $('#use-bomb-checkbox').removeClass('hidden');
                     $('#playersTable td:nth-child(3)').show(); // Показываем третий столбец

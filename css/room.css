@@ -75,6 +75,10 @@ button:active {
 }
 
 
+.chat-main {
+	display: flex;
+}
+
 .chat-messages {
 	width:530px;
 	height: 620px;
@@ -96,6 +100,7 @@ button:active {
 }
 
 .message-box{
+	margin-top: 25px;
 	display: flex;
 }
 
@@ -106,4 +111,52 @@ button:active {
 	border-radius: none;
 	box-shadow: none;
 	margin-top: 40px;
+}
+
+#recipient-dropdown {
+	margin-top: 20px;
+	width: 250px;
+	height: auto;
+	border: none;
+	appearance: none;
+	outline: none;
+	background-color: #3D3D3D;
+}
+
+#recipient-dropdown option {
+	margin-top: 20px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+	color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #D9D9D9;
+	border-radius: 6px;
+}
+
+
+
+#playersTable {
+	display: flex;
+	justify-content: center;
+	border-collapse: collapse;
+	margin-top: 25px;
+	margin-bottom: 50px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+	color: #fff;
+}
+
+#playersTable th, td {
+	padding: 12px;
+	text-align: center;
+	border-color: #fff;
+	border: solid;
 }
