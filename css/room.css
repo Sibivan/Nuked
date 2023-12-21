@@ -212,6 +212,7 @@ button:active {
 }
 
 #options-container input[type="checkbox"]:after {
+	display: none;
 	content: "\f00c";
 	font-family: "Font Awesome 6 Free";
 	font-weight: 900;
@@ -221,6 +222,12 @@ button:active {
 
 #options-container input[type="checkbox"]:hover {
 	background-color: #1C1C1C;
+}
+#options-container input[type="checkbox"]:checked {
+	border-color: #faff00;
+}
+#options-container input[type="checkbox"]:checked:after {
+	display: block;
 }
 
 

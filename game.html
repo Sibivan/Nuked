@@ -102,9 +102,7 @@
                             </h3>
                         </div>
                         <div class="col-md-2 wrapper-center">
-                            <h4 class="nav__rules">
-                                Правила
-                            </h4>
+                            
                         </div>
                         <div class="col-md-1 nav__a a_exit">
                             <button href="" id="start-game-button">
@@ -181,18 +179,15 @@
                         <table id="playersTable">
                             <thead>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Иран</td>
-                                    <td id="use-bomb-checkbox" class="hidden">lorem</td>
-                                    <td class="hidden">idsocket</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ирак</td>
-                                    <td id="use-bomb-checkbox" class="hidden">lorem</td>
-                                    <td class="hidden">idsocket</td>
+                                    <th>Игрок</th>
+                                    <th>Номер</th>
+                                    <th id="use-bomb-checkbox" class="hidden">Бомба</th>
+                                    <th class="hidden">idsocket</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -310,7 +305,7 @@
                     var idsocketCell = $('<td>').text(player.idsocket);
                     idsocketCell.addClass('hidden'); // Добавляем класс для скрытия
                     newRow.append(idsocketCell);
-
+                    console.log(player.name, player.idsocket);
                     // Добавляем строку в таблицу
                     $('#playersTable tbody').append(newRow);
                 });
@@ -400,7 +395,7 @@
     // Hide name input and start button
     $('#chat-container').prepend('<p><b>' + playerName + '</b>, добро пожаловать в чат!</p>');
     var timerInterval;
-            var timerValue = 420;
+            var timerValue = 30;
             var gameStarted = false; // Переменная для отслеживания состояния игры
 
             $('#start-game-button').click(function () {
@@ -534,28 +529,17 @@
             }
             // Функция для запуска таймера
             function startTimer() {
-                clearInterval(timerInterval);
-                timerInterval = setInterval(function () {
-                    var minutes = Math.floor(timerValue / 60);
-                    var seconds = timerValue % 60;
-
-                    // Форматирование таймера в формат "минуты:секунды"
-                    var formattedTimer = pad(minutes) + ':' + pad(seconds);
-                    $('#timer-value').text(formattedTimer);
-
-                    timerValue--;
-
-                    if (timerValue < 0) {
-                        // Сбрасываем таймер на 5 минут при достижении 0
-                        timerValue = 420;
-                    }
-                }, 1000);
-            }
-
-            // Функция для добавления ведущего нуля, если число меньше 10
-            function pad(number) {
-                return number < 10 ? '0' + number : number;
-            }
+                            clearInterval(timerInterval);
+                            timerInterval = setInterval(function () {
+                                timerValue--;
+                                $('#timer-value').text(timerValue);
+                                if (timerValue === 0) {
+                                    // Сбрасываем таймер на 30 секунд при достижении 0
+                                    timerValue = 30;
+                                    $('#timer-value').text(timerValue);
+                                }
+                            }, 1000);
+                        }
             function finishTimer() {
                 clearInterval(timerInterval);
             }
@@ -577,6 +561,7 @@
                 // Снимаем выбор со всех чекбоксов вне таблицы
                 $('input[type="checkbox"]').not('#playersTable tbody input[type="checkbox"]').prop('checked', false);
             });
+            
     
 }); 
   

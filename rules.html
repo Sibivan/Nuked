@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/rules.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 	<header class="header">
@@ -17,13 +18,13 @@
 					<div class="col-md-3 nav__a">
 						<a href="index.html" class="logo"><img src="img/logo.svg" alt="Gravity"></a>
 					</div>
-					<div class="col-md-2 nav__a a_main">
+					<!--<div class="col-md-2 nav__a a_main">
 						<a href="index.html">Главная</a>
-					</div>
+					</div>-->
 					<div class="col-md-2 nav__a a_rules">
-						<a href="rules.html">Правила</a>
+						<a id="backtogame">Главная</a>
 					</div>
-					<div class="col-md-3 nav__a a_updates">
+					<!--<div class="col-md-3 nav__a a_updates">
 						<a href="updates.html">Обновления</a>
 					</div>
 					<div class="col-md-1 nav__a a_profile">
@@ -31,13 +32,13 @@
 					</div>
 					<div class="col-md-1 nav__a a_exit">
 						<a href=""><img src="img/exit.svg" alt="Exit Gravity" class="img_exit"></a>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
 	</header>
-
-	<section class="rools-block">
+	
+	<!--<section class="rools-block">
 		<div class="rools-block__nav">
 			<a href="">
 				Введение
@@ -55,7 +56,7 @@
 				Цель игры
 			</a>
 		</div>
-
+		-->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -114,4 +115,13 @@
 			</div>
 		</div>
 	</footer>
+	<script>
+		function startenter() {
+	            window.location.href = '/';
+	        }
+            $('#backtogame').on('click', function () {
+            	console.log('start');
+                        startenter();
+            });
+	</script>
 </body>

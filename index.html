@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/index.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 	<header class="header">
@@ -21,7 +22,9 @@
 						<a href="index.html">Главная</a>
 					</div>
 					<div class="col-md-2 nav__a a_rules">
-						<a href="rules.html">Правила</a>
+						<button id="rule" class="nav__rules">
+                                Правила
+                            </button>
 					</div>
 					<div class="col-md-3 nav__a a_updates">
 						<a href="updates.html">Обновления</a>
@@ -163,9 +166,9 @@
 							</div>
 						</div>
 						<div class="col-md-2 wrapper-end">
-							<a href="chat.html" class="room__button">
+							<button id="enter" class="room__button">
 								Войти!
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -200,9 +203,9 @@
 							</div>
 						</div>
 						<div class="col-md-2 wrapper-end">
-							<a href="chat.html" class="room__button">
+							<button id="enter2" class="room__button">
 								Войти!
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -230,5 +233,28 @@
 			</div>
 		</div>
 	</footer>
+	<script>
+		$(function () {
+			function startenter() {
+	            window.location.href = '/chat';
+	        }
+            $('#enter').on('click', function () {
+            	console.log('start');
+                        startenter();
+            });
+            $('#enter2').on('click', function () {
+            	console.log('start');
+                        startenter();
+            });
+            function rules() {
+	            window.location.href = '/rules';
+	        }
+            $('#rule').on('click', function () {
+            	console.log('start');
+                        rules();
+            });
+            
+        });
+	</script>
 </body>
 </html>

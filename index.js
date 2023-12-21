@@ -9,13 +9,20 @@ const CONFIG = require('./config');
 var querystring = require('querystring');
 
 server.listen(3000);
-
+app.use('/css', express.static('css'));
+app.use('/img', express.static('img'));
 app.get('/', function (request, response) {
+    response.sendFile(__dirname + '/index.html');
+});
+app.get('/chat', function (request, response) {
     response.sendFile(__dirname + '/chat.html');
 });
 
 app.get('/game', function (request, response) {
     response.sendFile(__dirname + '/game.html');
+});
+app.get('/rules', function (request, response) {
+    response.sendFile(__dirname + '/rules.html');
 });
 app.get('/checkGameStatus', function (req, res) {
     // Получаем имя игрока из запроса
@@ -236,5 +243,5 @@ function startGameTimer() {
         // Добавляем событие, которое выполнится по истечении времени таймера
         io.sockets.emit('game timer finished');
         console.log("Событие: Игра завершена!");
-    }, 420000);
+    }, 30000);
 }
