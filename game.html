@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!--<style>
         table {
             width: 100%;
@@ -46,9 +47,9 @@
                             <a href="" class="logo"><img src="img/logo_small.svg" alt="Gravity"></a>
                         </div>
                         <div class="col-md-1">
-                            <button class="nav__orders-button">
+                            <a href="#info" class="nav__orders-button">
                                 <img src="img/orders_icon.svg" alt="" class="nav__orders-button__icon">
-                            </button>
+                            </a>
                         </div>
                         <div class="col-md-1">
                             <img src="img/fraction_icon.png" alt="" class="nav__fraction-icon">
@@ -159,34 +160,41 @@
 
 
 
-    <section class="info">
-        <div class="container">
-            <div class="row">
-                <div class="offset-md-3 col-md-6">
-                    <table id="playersTable">
-                        <thead>
-                            <tr>
-                                <th>Номер</th>
-                                <th>Игрок</th>
-                                <th id="use-bomb-checkbox" class="hidden">Бомба</th>
-                                <th class="hidden">idsocket</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Иран</td>
-                                <td id="use-bomb-checkbox" class="hidden">lorem</td>
-                                <td class="hidden">idsocket</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Ирак</td>
-                                <td id="use-bomb-checkbox" class="hidden">lorem</td>
-                                <td class="hidden">idsocket</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+    <section id="info" class="info">
+        <div class="info-body">
+            <div class="container">
+                <div class="flexible">
+                    <div class="info-header flexible">
+                        <h1>ОКНО ПРИКАЗОВ</h1>
+                        <a href="#"><img src="img/cross_button.svg" alt=""></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="flexible">
+                        <div id="options-container">
+                            <label><input type="checkbox" name="option" value="shield">ЩИТ</label>
+                            <label><input type="checkbox" name="option" value="bomb">БОМБА</label>
+                            <label><input type="checkbox" name="option" value="reform">РЕФОРМА</label>
+                        </div>
+                    </div>
+                    <div class="flexible">
+                        <table id="playersTable">
+                            <thead>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Иран</td>
+                                    <td id="use-bomb-checkbox" class="hidden">lorem</td>
+                                    <td class="hidden">idsocket</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Ирак</td>
+                                    <td id="use-bomb-checkbox" class="hidden">lorem</td>
+                                    <td class="hidden">idsocket</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,6 +240,18 @@
         </tbody>
     </table>
 </!-->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

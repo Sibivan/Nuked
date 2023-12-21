@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+	<title>Главная - NUKED</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<header class="header">
+		<div class="nav">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 nav__a">
+						<a href="index.html" class="logo"><img src="img/logo.svg" alt="Gravity"></a>
+					</div>
+					<div class="col-md-2 nav__a a_main">
+						<a href="index.html">Главная</a>
+					</div>
+					<div class="col-md-2 nav__a a_rules">
+						<a href="rules.html">Правила</a>
+					</div>
+					<div class="col-md-3 nav__a a_updates">
+						<a href="updates.html">Обновления</a>
+					</div>
+					<div class="col-md-1 nav__a a_profile">
+						<a href=""><img src="img/avatar.svg" alt="Profile Gravity" class="img_profile"></a>
+					</div>
+					<div class="col-md-1 nav__a a_exit">
+						<a href=""><img src="img/exit.svg" alt="Exit Gravity" class="img_exit"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="offer">
+			<div class="container">
+				<div class="row">
+					<div class="offset-md-1 col-md-10">
+						<h1 class="offer__title">
+							Nuked
+						</h1>
+						<p class="offer__text">
+							Добро пожаловать на сайт игры “Nuked”!
+						</p>
+						<p class="offer__text">
+							Игра представляет собой сратегию, в которой игрокам предстоит привести к победе свою страну.
+						</p>
+						<p class="offer__text">
+							Сделать свою державу сильнейшей в мире раньше соперников или уничтожить их всех - решать только Вам!
+						</p>
+					</div>
+					<div class="offset-md-4 col-md-4">
+						<button href="" class="offer__button">Как играть?</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section class="create-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5 wrapper-end">
+					<img src="img/create_pic.png" alt="Create Gravity" class="create-block__pic">
+				</div>
+				<div class="offset-md-1 col-md-5">
+					<h2 class="create-block__title">
+						Создать игровую комнату
+					</h2>
+					<input type="text" placeholder="Название комнаты" class="create-block__room-name">
+					<div class="create-block__param">
+						<div class="col-md-6">
+							<h3 class="create-block__param-name">
+								Длина хода
+							</h3>
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="create-block__param-field" value="5">
+						</div>
+						<div class="col-md-2">
+							<h4 class="create-block__param-field-title">
+								мин.
+							</h4>
+						</div>
+					</div>
+					<div class="create-block__param">
+						<div class="col-md-6">
+							<h3 class="create-block__param-name">
+								Кол-во игроков
+							</h3>
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="create-block__param-field" value="5">
+						</div>
+						<div class="col-md-2">
+							<h4 class="create-block__param-field-title">
+								чел.
+							</h4>
+						</div>
+					</div>
+					<div class="create-block__param">
+						<div class="col-md-6">
+							<h3 class="create-block__param-name">
+								Кол-во реформ
+							</h3>
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="create-block__param-field" value="3">
+						</div>
+						<div class="col-md-2">
+							<h4 class="create-block__param-field-title">
+								
+							</h4>
+						</div>
+					</div>
+					<div class="offset-md-2 col-md-8">
+						<a href="chat.html" class="create-block__button">Создать!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="rooms-block">
+		<div class="container">
+			<div class="row">
+				<div class="offset-md-3 col-md-6">
+					<h1 class="rooms-block__title">
+						Открытые комнаты
+					</h1>
+				</div>
+				<div class="col-md-12">
+					<div class="room">
+						<div class="col-md-2">
+							<img src="img/avatar_blue.jpg" alt="Room Gravity" class="room__pic">
+						</div>
+						<div class="col-md-3">
+							<h2 class="room__title">
+								Новая комната
+							</h2>
+						</div>
+						<div class="col-md-2">
+							<div class="room__info">
+								<h3 class="room__info__label">
+									Длина хода
+								</h3>
+								<div class="room__info__value">
+									5 мин.
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="room__info">
+								<h3 class="room__info__label">
+									Кол-во игроков
+								</h3>
+								<div class="room__info__value">
+									5 чел.
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 wrapper-end">
+							<a href="chat.html" class="room__button">
+								Войти!
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="room">
+						<div class="col-md-2">
+							<img src="img/avatar_red.jpg" alt="Room Gravity" class="room__pic">
+						</div>
+						<div class="col-md-3">
+							<h2 class="room__title">
+								Новая комната
+							</h2>
+						</div>
+						<div class="col-md-2">
+							<div class="room__info">
+								<h3 class="room__info__label">
+									Длина хода
+								</h3>
+								<div class="room__info__value">
+									7 мин.
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="room__info">
+								<h3 class="room__info__label">
+									Кол-во игроков
+								</h3>
+								<div class="room__info__value">
+									3 чел.
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 wrapper-end">
+							<a href="chat.html" class="room__button">
+								Войти!
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="footer__info">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt tellus sapien, nec dignissim lectus eleifend vehicula. Integer bibendum eget velit sed ullamcorper. Curabitur tempor et eros vitae porta. Quisque ac vulputate odio, ut vestibulum enim. Integer eget diam eget lectus tempor porta non id nunc. Aliquam eget velit at lacus malesuada vulputate.
+					</p>
+					<p class="footer__info">
+						Donec mauris orci, elementum ut vulputate quis, pharetra nec diam. Phasellus faucibus bibendum tellus, sit amet blandit est tristique vitae. Nullam dapibus augue id urna fringilla, ac pulvinar ligula tincidunt. Sed vitae vehicula justo.
+					</p>
+					<p class="footer__info">
+						© 2023 Все права защищены. Копирование материалов сайта запрещено.
+					</p>
+					<p class="footer__links">
+						<a href="">Пользовательское соглашение</a> | <a href="">Контакты</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

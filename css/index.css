@@ -129,11 +129,27 @@
 }
 
 .create-block__button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #FAFF00;
+	border-style: none;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 32px;
+	font-weight: 700;
+	color: #000;
+	box-shadow: 0 6px 0 #FBB400;
+	transition-duration: 0.3s;
 	width: 100%;
 	height: 70px;
 	margin-top: 131px;
 }
 
+.create-block__button:active {
+	transform: translateY(6px);
+	box-shadow: none;
+}
 
 
 
@@ -174,6 +190,23 @@
 }
 
 .room__button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #FAFF00;
+	border-style: none;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 32px;
+	font-weight: 700;
+	color: #000;
+	box-shadow: 0 6px 0 #FBB400;
+	transition-duration: 0.3s;
 	width: 170px;
 	height: 50px;
+}
+
+.room__button:active {
+	transform: translateY(6px);
+	box-shadow: none;
 }

@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 .wrapper-center {
 	margin-block: auto;
 }
@@ -17,10 +21,23 @@
 	height: 60px;
 	border-radius: 50%;
 	box-shadow: 0 3px 0 #FBB400;
+	display: block;
+	background: #FAFF00;
+	border-style: none;
+	text-align: center;
+	font-size: 32px;
+	font-weight: 700;
+	color: #000;
+	transition-duration: 0.3s;
+}
+
+.nav__orders-button img {
+	margin-top: 5px;
 }
 
 .nav__orders-button:active {
 	transform: translateY(3px);
+	box-shadow: none;
 }
 
 .nav__resource {
@@ -143,10 +160,8 @@ button:active {
 
 
 #playersTable {
-	display: flex;
-	justify-content: center;
 	border-collapse: collapse;
-	margin-top: 25px;
+	margin-top: 30px;
 	margin-bottom: 50px;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 700;
@@ -159,4 +174,110 @@ button:active {
 	text-align: center;
 	border-color: #fff;
 	border: solid;
+}
+
+.flexible {
+	display: flex;
+	justify-content: center;
+}
+
+#options-container {
+	margin-top: 30px;
+	margin-left: 50px;
+}
+
+#options-container input[type="checkbox"] {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	appearance: none;
+	-webkit-appearance: none;
+	margin-inline: auto;
+	width: 40px;
+	height: 40px;
+	border: 5px solid #3D3D3D;
+	border-radius: 5px;
+	background-color: #0C0C0C;
+	cursor: pointer;
+}
+
+#options-container label {
+	display: inline-block;
+	margin-right:50px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	color: #fff;
+	cursor: pointer;
+}
+
+#options-container input[type="checkbox"]:after {
+	content: "\f00c";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	font-size: 20px;
+	color: #faff00;
+}
+
+#options-container input[type="checkbox"]:hover {
+	background-color: #1C1C1C;
+}
+
+
+
+.info {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.8s, ease-out 0s;
+	-webkit-transition: 0.8s, ease-out 0s;
+}
+
+.info:target {
+	opacity: 1;
+	visibility: visible;
+}
+
+.info-body {
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.info-body .container {
+	background-color: #1C1C1C;
+	width: 570px;
+	border-radius: 40px;
+	padding: 0px;
+}
+
+.info-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #0C0C0C;
+	border-radius: 40px 40px 0px 0px;
+	width: 670px;
+	height: 80px;
+}
+
+.info-header h1 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+	color: #fff;
+	margin-top: 15px;
+	margin-right: 60px;
+}
+
+.info-header img {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
 }
